@@ -13,6 +13,9 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 0,
+    'react/jsx-filename-extension': 0,
+    'no-use-before-define': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
   },
   settings: {
     'import/resolver': {
