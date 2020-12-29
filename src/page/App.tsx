@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import LogIn from '../features/LogIn/container/LogIn';
 
 function App() {
   return (
     <Switch>
-      <Route to="/" render={() => <div>HdiH</div>} />
+      <Route to="/" component={LogIn} />
     </Switch>
   );
 }
