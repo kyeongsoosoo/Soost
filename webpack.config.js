@@ -1,18 +1,29 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
   mode: 'development',
   devtool: 'inline-source-map',
+
   module: {
     rules: [
       {
         test: /\.(ts)x?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: { chrome: '55' } /* chrome 55 이상으로 지정 */,
+                debug: true,
+              },
+            ],
+          ],
+        },
       },
       {
         test: /\.css$/,
@@ -48,7 +59,10 @@ module.exports = {
       },
     ],
   },
-  resolve: { extensions: ['*', '.js', '.jsx', '.ts', '.tsx'] },
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.jpg'],
+  },
+
   output: {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/dist/',

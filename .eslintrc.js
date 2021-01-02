@@ -18,6 +18,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/destructuring-assignment': 0,
     'import/extensions': 0,
+    '@typescript-eslint/no-var-requires': 0,
   },
   settings: {
     'import/resolver': {

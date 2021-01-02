@@ -8,6 +8,6 @@
     "module": "commonjs",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src"],
+  "include": ["./src", "firebase.ts"],
   "exclude": ["node_modules"]
 }
