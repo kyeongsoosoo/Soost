@@ -23,7 +23,11 @@ const LogInWrapper = styled.div`
   }
 `;
 
-const LogInWrapperRightBox = styled.div``;
+const LogInWrapperRightBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export default {
   LogInPage,

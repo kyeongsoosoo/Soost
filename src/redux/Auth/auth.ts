@@ -1,9 +1,9 @@
 import { createReducer } from 'typesafe-actions';
-import { AUTH_LOGIN } from './actions';
+import { AUTH_LOGIN, AUTH_LOGOUT } from './actions';
 import { AUTH_ACTION } from './type';
 
 type AUTH_STATE = {
-  currentUser: firebase.default.auth.UserCredential | null;
+  currentUser: firebase.default.User | null;
 };
 
 const initialState: AUTH_STATE = {
@@ -13,6 +13,9 @@ const initialState: AUTH_STATE = {
 const auth = createReducer<AUTH_STATE, AUTH_ACTION>(initialState, {
   [AUTH_LOGIN]: (state, action) => ({
     currentUser: action.payload,
+  }),
+  [AUTH_LOGOUT]: () => ({
+    currentUser: null,
   }),
 });
 
