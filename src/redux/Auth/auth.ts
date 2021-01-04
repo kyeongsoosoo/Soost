@@ -1,10 +1,12 @@
+/* eslint-disable consistent-return */
 import { createReducer } from 'typesafe-actions';
-import { AUTH_LOGIN, AUTH_LOGOUT } from './actions';
+import { IUser } from '../../lib/type';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_PROFILE } from './actions';
 import { AUTH_ACTION } from './type';
 
-type AUTH_STATE = {
-  currentUser: firebase.default.User | null;
-};
+interface AUTH_STATE {
+  currentUser: IUser | null;
+}
 
 const initialState: AUTH_STATE = {
   currentUser: null,
@@ -17,6 +19,12 @@ const auth = createReducer<AUTH_STATE, AUTH_ACTION>(initialState, {
   [AUTH_LOGOUT]: () => ({
     currentUser: null,
   }),
+  [AUTH_PROFILE]: (state, action) => {
+    const test = state;
+    if (!test.currentUser) return test;
+    test.currentUser.photoURL = action.payload;
+    return test;
+  },
 });
 
 export default auth;

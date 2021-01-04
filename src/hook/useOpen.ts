@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-const useOpen = () => {
-  const [isOpen, setOpen] = useState(false);
+const useClicked = () => {
+  const [isClicked, setClicked] = useState(false);
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setOpen((open) => !open);
+    setClicked((clicked) => !clicked);
   };
-  return { isOpen, handleClick };
+  return { isClicked, handleClick };
 };
 
-export default useOpen;
+export default useClicked;

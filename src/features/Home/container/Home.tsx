@@ -5,7 +5,7 @@ import Header from '../../../component/Header/Header';
 function Home() {
   return (
     <>
-      <Header />
+      <div>Hi</div>
     </>
   );
 }

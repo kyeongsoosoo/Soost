@@ -4,13 +4,12 @@ import S from './IWB.styled';
 
 interface IWBProp {
   children: React.ReactNode;
-  isOpen: boolean;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  isClicked: boolean;
 }
 
 function IWB(props: IWBProp) {
   return (
-    <S.IconBoxBubble isOpen={props.isOpen} onClick={props.onClick}>
+    <S.IconBoxBubble isClicked={props.isClicked}>
       <SpeechBubble>{props.children}</SpeechBubble>
     </S.IconBoxBubble>
   );

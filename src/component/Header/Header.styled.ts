@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
-flex
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   background-color: #ffffff;
   padding: 0px 20px;
   width: 100%;
   height: 50px;
-  border-bottom:  1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 const HeaderInput = styled.input`

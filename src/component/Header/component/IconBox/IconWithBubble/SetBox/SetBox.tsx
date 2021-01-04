@@ -9,13 +9,13 @@ import LogoutItem from './LogoutItem/LogoutItem';
 function SetBox() {
   return (
     <S.SetBoxWrapper>
-      <SetItem link="/user/profile" text="프로필">
+      <SetItem link="/userid" text="프로필">
         <CgProfile />
       </SetItem>
       <SetItem link="user/bookmark" text="저장됨">
         <CgBookmark />
       </SetItem>
-      <SetItem link="user/settings" text="설정">
+      <SetItem link="account/edit" text="설정">
         <IoIosSettings />
       </SetItem>
       <SetItem link="user/accountChange" text="계정 전환">

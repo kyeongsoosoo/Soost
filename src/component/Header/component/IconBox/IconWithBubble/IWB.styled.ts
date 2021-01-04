@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 interface IconBoxBubbleProp {
-  isOpen: boolean;
+  isClicked: boolean;
 }
 
 const IconBoxBubble = styled.div<IconBoxBubbleProp>`
   position: absolute;
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ isClicked }) => (isClicked ? 'block' : 'none')};
   top: 40px;
   right: -26px;
 `;
