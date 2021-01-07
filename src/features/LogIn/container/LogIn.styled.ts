@@ -9,14 +9,25 @@ const LogInPage = styled.div`
 `;
 
 const LogInWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 360px 360px;
-  grid-gap: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 750px;
   height: 580px;
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 750px) {
+    display: grid;
+    grid-template-columns: 360px 360px;
+    grid-gap: 30px;
+  }
 `;
 
-const LogInWrapperRightBox = styled.div``;
+const LogInWrapperRightBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export default {
   LogInPage,

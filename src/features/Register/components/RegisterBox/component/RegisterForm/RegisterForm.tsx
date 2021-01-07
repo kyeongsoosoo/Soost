@@ -2,7 +2,8 @@ import firebase from 'firebase';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import fb from '../../../../../../../firebase';
+import fb, { db } from '../../../../../../../firebase';
+import { IUser } from '../../../../../../lib/type';
 import S from './RegisterForm.styled';
 
 interface RegisterInputs {
@@ -14,6 +15,43 @@ interface RegisterInputs {
 
 function RegisterForm() {
   const history = useHistory();
+
+  const setProfile = async (
+    user: firebase.User,
+    registerData: RegisterInputs,
+  ) => {
+    if (!user.email) return;
+    const profile = db.collection('user').doc(user.uid);
+    const initialProfile: IUser = {
+      email: user.email,
+      uid: user.uid,
+      displayName: registerData.name,
+      nickname: registerData.nickname,
+      website: '',
+      introduction: '',
+      phoneNumber: '',
+      gender: '',
+      photoURL: '',
+    };
+    await profile.set(initialProfile);
+  };
+  const setFacebookProfile = async (user: firebase.User) => {
+    if (!user.email || !user.displayName) return;
+    const profile = db.collection('user').doc(user.uid);
+    if ((await profile.get()).exists) return;
+    const initialProfile: IUser = {
+      email: user.email,
+      uid: user.uid,
+      displayName: user.displayName,
+      nickname: user.displayName,
+      website: '',
+      introduction: '',
+      phoneNumber: '',
+      gender: '',
+      photoURL: '',
+    };
+    await profile.set(initialProfile);
+  };
 
   const {
     register,
@@ -30,21 +68,22 @@ function RegisterForm() {
           registerData.email,
           registerData.password,
         );
+      if (!createdUser.user) return;
+      await setProfile(createdUser.user, registerData);
       history.push('/');
-      console.log(createdUser);
     } catch (error) {
       console.log(error);
     }
   };
-  const handleFacebookLogin = async (
+  const handleFacebookRegister = async (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
-    console.log(event);
     const provider = new firebase.auth.FacebookAuthProvider();
 
     try {
-      const user = await firebase.auth().signInWithPopup(provider);
-      console.log(user);
+      const createdUser = await firebase.auth().signInWithPopup(provider);
+      if (!createdUser.user) return;
+      await setFacebookProfile(createdUser.user);
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +94,7 @@ function RegisterForm() {
       <S.RegisterIntroductionBox>
         친구들과 사진과 동영상을 보려면 가입하세요.
       </S.RegisterIntroductionBox>
-      <S.RegisterFacebookButton onClick={handleFacebookLogin}>
+      <S.RegisterFacebookButton onClick={handleFacebookRegister}>
         Facebook으로 로그인
       </S.RegisterFacebookButton>
       <S.RegisterSeperationBox>

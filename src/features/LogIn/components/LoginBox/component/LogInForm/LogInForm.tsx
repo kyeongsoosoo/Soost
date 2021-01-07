@@ -3,8 +3,7 @@
 import firebase from 'firebase';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../../../../../redux/Auth/actions';
+
 import S from './LogInForm.styled';
 
 type Inputs = {
@@ -13,7 +12,6 @@ type Inputs = {
 };
 
 function LogInForm() {
-  const dispatch = useDispatch();
   const [loginError, setError] = useState('');
   const {
     register,
@@ -27,8 +25,6 @@ function LogInForm() {
       const user = await firebase
         .auth()
         .signInWithEmailAndPassword(loginData.email, loginData.password);
-      console.log(user);
-      dispatch(loginSuccess(user));
     } catch (error) {
       setError(error.message);
       setTimeout(() => setError(''), 5000);
@@ -42,7 +38,6 @@ function LogInForm() {
 
     try {
       const user = await firebase.auth().signInWithPopup(provider);
-      dispatch(loginSuccess(user));
     } catch (error) {
       console.log(error);
     }
