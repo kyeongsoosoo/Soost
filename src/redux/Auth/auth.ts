@@ -1,7 +1,12 @@
 /* eslint-disable consistent-return */
 import { createReducer } from 'typesafe-actions';
 import { IUser } from '../../lib/type';
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_PROFILE } from './actions';
+import {
+  AUTH_LOGIN,
+  AUTH_LOGOUT,
+  AUTH_PROFILE,
+  AUTH_PROFILE_INPUT,
+} from './actions';
 import { AUTH_ACTION } from './type';
 
 interface AUTH_STATE {
@@ -25,6 +30,9 @@ const auth = createReducer<AUTH_STATE, AUTH_ACTION>(initialState, {
     test.currentUser.photoURL = action.payload;
     return test;
   },
+  [AUTH_PROFILE_INPUT]: (_, action) => ({
+    currentUser: action.payload,
+  }),
 });
 
 export default auth;

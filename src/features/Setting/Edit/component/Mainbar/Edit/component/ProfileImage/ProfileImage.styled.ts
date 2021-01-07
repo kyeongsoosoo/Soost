@@ -2,30 +2,15 @@ import styled from 'styled-components';
 
 type ProfileImageImageProp = {
   imageURL: string;
+  width: string;
+  height: string;
 };
 
 const ProfileImageWrapper = styled.div`
   display: flex;
+  margin-top: 30px;
   width: 480px;
   height: 55px;
-`;
-
-const ProfileImageImageWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 30px;
-  width: 130px;
-`;
-
-const ProfileImageImage = styled.div<ProfileImageImageProp>`
-  width: 45px;
-  height: 45px;
-  border-radius: 22px;
-  background-image: url(${({ imageURL }) => `${imageURL}`});
-  background-position: center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
 `;
 
 const ProfileImageTextWrapper = styled.div`
@@ -45,11 +30,18 @@ const ProfileImageChangeButton = styled.div`
   font-weight: 600;
 `;
 
+const ProfileImageImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 30px;
+  width: 130px;
+`;
+
 export default {
   ProfileImageChangeButton,
-  ProfileImageImage,
+  ProfileImageImageWrapper,
   ProfileImageNickname,
   ProfileImageWrapper,
   ProfileImageTextWrapper,
-  ProfileImageImageWrapper,
 };

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+
 import fb from '../../../../../../../firebase';
+import { IUser } from '../../../../../../lib/type';
 import { RootState } from '../../../../../../redux';
-import ProfileImage from './component/ProfileImage/ProfileImage';
+import { profileInputSuccess } from '../../../../../../redux/Auth/actions';
+import EditorImage from './component/ProfileImage/EditorImage';
+
 import ProfileInput from './component/ProfileInput/ProfileInput';
 import S from './Edit.styled';
 
 function Edit() {
   const profile = useSelector((state: RootState) => state.auth.currentUser);
 
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [name, setName] = useState(profile?.displayName || '');
   const [nickName, setNickName] = useState(profile?.nickname || '');
@@ -20,9 +23,17 @@ function Edit() {
   const [phoneN, setPhoneN] = useState(profile?.phoneNumber || '');
   const [gender, setGender] = useState(profile?.gender || '');
 
+  const [isSubmitValid, setValid] = useState(false);
+
+  const checkSubmitValid = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === 'Enter') event.preventDefault();
+    setValid(true);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    if (!profile) return;
     event.preventDefault();
-    await fb.firestore().collection('user').doc(`${profile?.uid}`).update({
+    const newProfile: IUser = {
       displayName: name,
       nickname: nickName,
       website,
@@ -30,16 +41,29 @@ function Edit() {
       email,
       phoneNumber: phoneN,
       gender,
-    });
-    history.push('/account/edit');
+      uid: profile?.uid,
+      photoURL: profile?.photoURL,
+    };
+    await fb
+      .firestore()
+      .collection('user')
+      .doc(`${profile?.uid}`)
+      .update(newProfile);
+    dispatch(profileInputSuccess(newProfile));
+    setValid(false);
   };
 
   return (
     <>
-      {profile && (
+      {!profile ? (
+        <div>Loading</div>
+      ) : (
         <S.EditWrapper>
-          <ProfileImage />
-          <S.EditInputWrapper onSubmit={handleSubmit}>
+          <EditorImage />
+          <S.EditInputWrapper
+            onSubmit={handleSubmit}
+            onKeyDown={checkSubmitValid}
+          >
             <ProfileInput name="이름" handleChange={setName} value={name} />
             <ProfileInput
               name="사용자 이름"
@@ -59,7 +83,13 @@ function Edit() {
               value={phoneN}
             />
             <ProfileInput name="성별" handleChange={setGender} value={gender} />
-            <S.EditSubmitButton>제출</S.EditSubmitButton>
+            {isSubmitValid ? (
+              <S.EditSubmitButton>제출</S.EditSubmitButton>
+            ) : (
+              <S.EditSubmitUnactiveButton type="button">
+                제출
+              </S.EditSubmitUnactiveButton>
+            )}
           </S.EditInputWrapper>
         </S.EditWrapper>
       )}

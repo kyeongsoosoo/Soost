@@ -1,14 +1,18 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import fb from '../../../../../../../../../firebase';
+import ProfileImage from '../../../../../../../../component/ProfileImage/ProfileImage';
 import { RootState } from '../../../../../../../../redux';
 import { profileSuccess } from '../../../../../../../../redux/Auth/actions';
 import S from './ProfileImage.styled';
 
-function ProfileImage() {
+function EditorImage() {
   const profile = useSelector((state: RootState) => state.auth.currentUser);
   const profileImage = useSelector(
     (state: RootState) => state.auth.currentUser?.photoURL,
+  );
+  const profileNickName = useSelector(
+    (state: RootState) => state.auth.currentUser?.nickname,
   );
 
   const dispatch = useDispatch();
@@ -26,6 +30,7 @@ function ProfileImage() {
     if (event.currentTarget.files === null) return;
     if (!profile) return;
     const file = event.currentTarget.files[0];
+    console.log(URL.createObjectURL(file));
     try {
       const uploadTask = await fb
         .storage()
@@ -51,12 +56,16 @@ function ProfileImage() {
         <S.ProfileImageWrapper>
           {profileImage && (
             <S.ProfileImageImageWrapper>
-              <S.ProfileImageImage imageURL={profileImage} />
+              <ProfileImage
+                width="45px"
+                height="45px"
+                imageURL={profileImage}
+              />
             </S.ProfileImageImageWrapper>
           )}
           <S.ProfileImageTextWrapper>
             <S.ProfileImageNickname>
-              {profile.nickname || 'hi'}
+              {profileNickName || 'hi'}
             </S.ProfileImageNickname>
             <S.ProfileImageChangeButton onClick={handleOpenImageRef}>
               프로필 사진 바꾸기
@@ -75,4 +84,4 @@ function ProfileImage() {
   );
 }
 
-export default ProfileImage;
+export default EditorImage;

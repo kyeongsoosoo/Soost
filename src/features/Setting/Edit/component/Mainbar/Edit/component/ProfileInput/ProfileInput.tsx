@@ -22,4 +22,4 @@ function ProfileInput(props: IProfileInputProp) {
   );
 }
 
-export default ProfileInput;
+export default React.memo(ProfileInput);
