@@ -5,7 +5,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  z-index: 500;
   background-color: #ffffff;
   padding: 0px 20px;
   width: 100%;
@@ -22,7 +22,13 @@ const HeaderInput = styled.input`
   }
 `;
 
+const Space = styled.div`
+  width: 100%;
+  height: 50px;
+`;
+
 export default {
   HeaderWrapper,
   HeaderInput,
+  Space,
 };

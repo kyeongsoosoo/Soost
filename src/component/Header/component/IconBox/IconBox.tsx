@@ -1,16 +1,24 @@
 import React from 'react';
-import { AiFillHome, AiOutlineCompass, AiOutlineHeart } from 'react-icons/ai';
+import {
+  AiFillHome,
+  AiOutlineCompass,
+  AiOutlineHeart,
+  AiOutlinePlusCircle,
+} from 'react-icons/ai';
 import { BiPaperPlane } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { useSelector } from 'react-redux';
 import { useLocation, useRouteMatch } from 'react-router';
 import useClicked from '../../../../hook/useOpen';
 import { RootState } from '../../../../redux';
+import Modal from '../../../Modal/Modal';
+import Portal from '../../../Portal/Portal';
 import ProfileImage from '../../../ProfileImage/ProfileImage';
 
 import S from './IconBox.styled';
 import IWB from './IconWithBubble/IWB';
 import SetBox from './IconWithBubble/SetBox/SetBox';
+import PlusFeedIcon from './PlusFeedIcon/PlusFeedIcon';
 
 function IconBox() {
   const test = useRouteMatch('/test/hi');
@@ -40,9 +48,7 @@ function IconBox() {
         </S.IconBoxIconLink>
       </S.IconBoxIcon>
       <S.IconBoxIcon>
-        <S.IconBoxIconLink to="/explore">
-          <AiOutlineCompass style={{ width: '25px', height: '25px' }} />
-        </S.IconBoxIconLink>
+        <PlusFeedIcon />
       </S.IconBoxIcon>
       <S.IconBoxIcon onClick={handleLikeClick}>
         <AiOutlineHeart style={{ width: '25px', height: '25px' }} />

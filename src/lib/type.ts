@@ -9,3 +9,10 @@ export interface IUser {
   gender: string;
   photoURL: string;
 }
+
+export interface IFeed {
+  image: string[];
+  text: string;
+  writerNick: string;
+  writerPhote: string;
+}

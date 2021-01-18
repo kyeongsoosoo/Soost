@@ -6,11 +6,14 @@ import S from './Header.styled';
 
 function Header() {
   return (
-    <S.HeaderWrapper>
-      <Title />
-      <S.HeaderInput />
-      <IconBox />
-    </S.HeaderWrapper>
+    <>
+      <S.HeaderWrapper>
+        <Title />
+        <S.HeaderInput />
+        <IconBox />
+      </S.HeaderWrapper>
+      <S.Space />
+    </>
   );
 }
 
