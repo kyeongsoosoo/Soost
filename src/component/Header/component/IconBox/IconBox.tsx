@@ -11,11 +11,14 @@ import { useSelector } from 'react-redux';
 import { useLocation, useRouteMatch } from 'react-router';
 import useClicked from '../../../../hook/useOpen';
 import { RootState } from '../../../../redux';
+import Modal from '../../../Modal/Modal';
+import Portal from '../../../Portal/Portal';
 import ProfileImage from '../../../ProfileImage/ProfileImage';
 
 import S from './IconBox.styled';
 import IWB from './IconWithBubble/IWB';
 import SetBox from './IconWithBubble/SetBox/SetBox';
+import PlusFeedIcon from './PlusFeedIcon/PlusFeedIcon';
 
 function IconBox() {
   const test = useRouteMatch('/test/hi');
@@ -45,9 +48,7 @@ function IconBox() {
         </S.IconBoxIconLink>
       </S.IconBoxIcon>
       <S.IconBoxIcon>
-        <S.IconBoxIconLink to="/explore">
-          <AiOutlinePlusCircle style={{ width: '25px', height: '25px' }} />
-        </S.IconBoxIconLink>
+        <PlusFeedIcon />
       </S.IconBoxIcon>
       <S.IconBoxIcon onClick={handleLikeClick}>
         <AiOutlineHeart style={{ width: '25px', height: '25px' }} />
